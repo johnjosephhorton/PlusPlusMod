@@ -1,0 +1,15 @@
+application: plusplusmod
+version: 1
+runtime: python
+api_version: 1
+
+builtins:
+- remote_api: on
+
+handlers:
+- url: /
+  script: app.py
+  login: required
+
+- url: /exp/(.*)
+  script: app.py

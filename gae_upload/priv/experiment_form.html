@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <form action="{{ self|escape }}" method="POST">
+    <p>Logged in as <strong>{{ user.email|escape }}</strong></p>
+
+    <p>
+      <input type="text" name="title" size="40" placeholder="Experiment title">
+
+      <input type="text" name="group_count" size="15" placeholder="Group count">
+    </p>
+
+    <p>
+      <input type="submit" value="Create new experiment">
+    </p>
+  </form>
+{% endblock %}

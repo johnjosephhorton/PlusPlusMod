@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <h3>{{ experiment.title|escape }}</h3>
+
+  <p>Counter value is <strong>{{ experiment.counter }}</strong></p>
+
+  <p>POST to this URL to increment the counter</p>
+{% endblock %}
