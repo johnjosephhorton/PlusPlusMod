@@ -20,6 +20,14 @@ class Experiment(datastore.Model):
     return datastore.run_in_transaction(increment_experiment_counter, self.key())
 
 
+class IncrementCounterRequest(datastore.Model):
+  created = datastore.DateTimeProperty(auto_now_add=True)
+  experiment = datastore.ReferenceProperty(Experiment, collection_name='requests')
+  remote_addr = datastore.StringProperty()
+  user_agent = datastore.StringProperty()
+  return_value = datastore.IntegerProperty()
+
+
 def increment_experiment_counter(experiment_key):
   experiment = datastore.get(experiment_key)
   index = experiment.counter
