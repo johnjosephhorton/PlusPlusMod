@@ -109,6 +109,12 @@ class ExperimentCounter(Handler):
   def post(self, key):
     index = self.experiment.increment_counter()
 
+    request = IncrementCounterRequest()
+    request.remote_addr = self.request.remote_addr
+    request.user_agent = self.request.headers['User-Agent']
+    request.return_value = index
+    request.put()
+
     self.response.set_status(202) # Accepted
 
     self.render_json({'group': index})
