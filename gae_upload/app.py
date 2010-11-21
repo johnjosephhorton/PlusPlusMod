@@ -95,18 +95,17 @@ class ExperimentForm(Handler):
     experiment.group_count = int(self.request.get('group_count'))
     experiment.put()
 
-    self.redirect('/exp/' + str(experiment.key()))
+    url = '%s/exp/%s?jsonp=?' % (self.request.host_url, experiment.key())
+
+    self.render('priv/experiment_counter.html', {
+      'experiment': experiment
+    , 'url': url
+    })
 
 
 class ExperimentCounter(Handler):
   @experiment_required
   def get(self, key):
-    self.render('priv/experiment_counter.html', {
-      'experiment': self.experiment
-    })
-
-  @experiment_required
-  def post(self, key):
     index = self.experiment.increment_counter()
 
     request = IncrementCounterRequest()
@@ -115,9 +114,9 @@ class ExperimentCounter(Handler):
     request.return_value = index
     request.put()
 
-    self.response.set_status(202) # Accepted
+    self.response.headers['Content-Type'] = 'text/javascript'
 
-    self.render_json({'group': index})
+    self.write('%s(%s)' % (self.request.get('jsonp'), json.dumps({'group': index})))
 
 
 def handlers():

@@ -3,7 +3,7 @@
 {% block body %}
   <h3>{{ experiment.title|escape }}</h3>
 
-  <p>Counter value is <strong>{{ experiment.counter }}</strong></p>
+  <p>Increment the counter for this experiment by requesting the following URL using JSONP:</p>
 
-  <p>POST to this URL to increment the counter</p>
+  <p><tt>{{ url|escape }}</tt></p>
 {% endblock %}
